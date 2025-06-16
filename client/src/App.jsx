@@ -22,7 +22,7 @@ function App() {
     setMessages((prev) => [...prev, { role: "user", text: userMessage, time: new Date() }]);
 
     try {
-      const res = await axios.post("http://localhost:5000/api/gemini", {
+      const res = await axios.post("https://chat-bot-2-k9b1.onrender.com/api/gemini", {
         message: userMessage,
       });
 

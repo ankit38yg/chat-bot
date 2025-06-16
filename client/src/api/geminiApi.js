@@ -1,4 +1,4 @@
-const API_URL = 'http://localhost:5000/api/gemini';
+const API_URL = 'https://chat-bot-2-k9b1.onrender.com/api/gemini';
 
 export const sendMessageToGemini = async (userMessage) => {
   try {
