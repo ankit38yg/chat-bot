@@ -2,28 +2,19 @@ import express from "express";
 import dotenv from "dotenv";
 import cors from "cors";
 import axios from "axios";
-import path from "path";
-import { fileURLToPath } from "url";
-
-// Required for __dirname in ES Modules
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
 
 dotenv.config();
 
 const app = express();
-const PORT = process.env.PORT || 5000;
-
+const PORT = 5000;
 app.use(cors());
 app.use(express.json());
-
-// ✅ Serve frontend static files (after frontend build is copied to ./server/public)
-app.use(express.static(path.join(__dirname, "public")));
 
 app.post("/api/gemini", async (req, res) => {
   try {
     const { message } = req.body;
 
+    // Custom instructions injected before the user's message
     const instruction = `
 You are an AI assistant. Follow these strict rules:
 1. Always provide short and highly relevant answers.
@@ -53,11 +44,6 @@ You are an AI assistant. Follow these strict rules:
     console.error("Gemini error:", err.response?.data || err.message);
     res.status(500).json({ error: "Failed to generate response from Gemini." });
   }
-});
-
-// ✅ Fallback for frontend routing
-app.get("*", (req, res) => {
-  res.sendFile(path.join(__dirname, "public", "index.html"));
 });
 
 app.listen(PORT, () => {
