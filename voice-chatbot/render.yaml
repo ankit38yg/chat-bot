@@ -1,0 +1,14 @@
+services:
+  - type: web
+    name: voice-chatbot-app
+    env: docker
+    plan: free
+    repo: https://github.com/your-username/your-repo-name  # ⬅️ Replace with your actual GitHub repo
+    branch: main  # or "master" or your working branch
+    dockerfilePath: ./Dockerfile
+    autoDeploy: true
+    envVars:
+      - key: PORT
+        value: 5000
+      - key: GEMINI_API_KEY
+        sync: false  # Add this manually via Render Dashboard or set `value: your_key_here`
