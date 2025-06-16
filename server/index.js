@@ -11,11 +11,15 @@ const PORT = process.env.PORT || 5000;
 app.use(cors());
 app.use(express.json());
 
+// ✅ Add this route for health check
+app.get("/", (req, res) => {
+  res.send("🟢 Gemini backend is running!");
+});
+
 app.post("/api/gemini", async (req, res) => {
   try {
     const { message } = req.body;
 
-    // Custom instructions injected before the user's message
     const instruction = `
 You are an AI assistant. Follow these strict rules:
 1. Always provide short and highly relevant answers.
