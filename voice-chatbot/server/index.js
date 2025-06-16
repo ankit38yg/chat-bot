@@ -9,8 +9,7 @@ dotenv.config();
 
 const app = express();
 const PORT = 5000;
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
+
 
 app.use(cors());
 app.use(express.json());
@@ -49,12 +48,6 @@ You are an AI assistant. Follow these strict rules:
     console.error("Gemini error:", err.response?.data || err.message);
     res.status(500).json({ error: "Failed to generate response from Gemini." });
   }
-});
-// Serve static files
-app.use(express.static(path.join(__dirname, "client/dist")));
-
-app.get("*", (req, res) => {
-  res.sendFile(path.join(__dirname, "client", "dist", "index.html"));
 });
 
 app.listen(PORT, () => {
