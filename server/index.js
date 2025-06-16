@@ -6,8 +6,7 @@ import axios from "axios";
 dotenv.config();
 
 const app = express();
-const PORT = 5000;
-
+const PORT = process.env.PORT || 5000;
 
 app.use(cors());
 app.use(express.json());
@@ -39,9 +38,9 @@ You are an AI assistant. Follow these strict rules:
       }
     );
 
-    const reply = response.data.candidates?.[0]?.content?.parts?.[0]?.text || "No reply";
+    const reply =
+      response.data.candidates?.[0]?.content?.parts?.[0]?.text || "No reply";
     res.json({ reply });
-
   } catch (err) {
     console.error("Gemini error:", err.response?.data || err.message);
     res.status(500).json({ error: "Failed to generate response from Gemini." });
@@ -49,5 +48,5 @@ You are an AI assistant. Follow these strict rules:
 });
 
 app.listen(PORT, () => {
-  console.log(`✅ Server is running on http://localhost:${PORT}`);
+  console.log(`✅ Server is running on port ${PORT}`);
 });
